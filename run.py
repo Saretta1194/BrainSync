@@ -63,8 +63,21 @@ def rules():
     print("Good luck! 🍀\n")
     time.sleep(1)
 
+def get_username():
+    """
+    Ask the user for their name and validate it's not empty.
+    Returns the username as a string.
+    """
+    while True:
+        name = input("🧑 Please enter your name: ").strip()
+        if name:
+            return name
+        else:
+            print("⚠️ Name cannot be empty. Please try again.")
+
+
 # Main menu
-def main_menu():
+def main_menu(username):
     time.sleep(0.8)
     """
     Displays the main menu and handles user navigation.
@@ -72,6 +85,7 @@ def main_menu():
     while True:
         clear()
         display_title()
+        print(f"👋 Welcome, {username}!\n")
         print("Please choose an option:")
         print("1. Start Quiz")
         print("2. View Rules")
@@ -92,7 +106,7 @@ def main_menu():
             input("\nPress ENTER to return to the main menu.")
 
         elif choice == "3":
-            print("\nThanks for playing BrainSync! Goodbye 👋")
+            print(f"\nThanks for playing BrainSync, {username}! Goodbye 👋")
             time.sleep(1)
             sys.exit()
 
@@ -130,4 +144,7 @@ def run_level(level):
 
 clear()
 display_title()
-main_menu()
+username = get_username()
+print(f"\n👋 Hello, {username}! Get ready to test your knowledge.\n")
+time.sleep(1.2)
+main_menu(username)
