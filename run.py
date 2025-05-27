@@ -1,6 +1,24 @@
+import gspread
+from google.oauth2.service_account import Credentials
 import os
 import sys
 import time
+
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('BrainSync')
+
+question_sheet = SHEET.worksheet('questions')
+
+
 
 # Clear terminal screen
 def clear():
@@ -81,6 +99,33 @@ def main_menu():
         else:
             print("\n❌ Invalid input. Please enter 1, 2 or 3.")
             time.sleep(1.5)
+
+def run_level(level):
+    """
+    Runs the quiz for a given level (easy, medium, hard).
+    Loads one question for now.
+    """
+    # Carica tutte le righe dal foglio Google Sheets come lista di dizionari
+    data = question_sheet.get_all_records()
+
+    # Filtra solo le domande con il livello desiderato
+    level_questions = [q for q in data if q['level'] == level]
+
+    # Per ora selezioniamo la prima domanda del livello
+    question = level_questions[0]
+
+    # Mostra la domanda e le opzioni all'utente
+    print("\nHere is your question:")
+    print(f"Q: {question['question']}")
+    print(f"A: {question['option_a']}")
+    print(f"B: {question['option_b']}")
+    print(f"C: {question['option_c']}")
+
+
+
+
+
+    
 
 
 clear()
