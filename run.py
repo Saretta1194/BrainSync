@@ -119,6 +119,7 @@ def run_level(level):
     Runs the quiz for a given level (easy, medium, hard).
     Loads one question for now.
     """
+
     # Carica tutte le righe dal foglio Google Sheets come lista di dizionari
     data = question_sheet.get_all_records()
 
@@ -128,18 +129,32 @@ def run_level(level):
     # Per ora selezioniamo la prima domanda del livello
     question = level_questions[0]
 
-    # Mostra la domanda e le opzioni all'utente
+def ask_question(question):
+      
     print("\nHere is your question:")
     print(f"Q: {question['question']}")
     print(f"A: {question['option_a']}")
     print(f"B: {question['option_b']}")
     print(f"C: {question['option_c']}")
 
-
+    answer = input("Enter your answer here: ").strip().upper()
+    if answer in ["A", "B", "C"]:
+       if answer == question["correct"]:
+        print("Correct Good Job")
+       else:
+        print("wrong try again")
+    else:
+        print("Write A,B or C") 
 
 
 
     
+
+    
+
+
+
+
 
 
 clear()
@@ -148,3 +163,4 @@ username = get_username()
 print(f"\n👋 Hello, {username}! Get ready to test your knowledge.\n")
 time.sleep(1.2)
 main_menu(username)
+
