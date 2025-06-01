@@ -116,8 +116,7 @@ def main_menu(username):
 
 def run_level(level):
     """
-    Runs the quiz for a given level (easy, medium, hard).
-    Loads one question for now.
+    Runs the quiz for a given level (easy, medium, hard)
     """
 
     # Load all rows from Google Sheets as dictionary list
@@ -125,6 +124,22 @@ def run_level(level):
 
     # Filter only questions with the desired level
     level_questions = [q for q in data if q['level'] == level]
+
+    score = 0
+    mistakes = 0 
+    
+    for question in level_questions[:5]:
+        if ask_question(question):
+            score += 1
+        else: 
+            mistakes += 1
+        if mistakes > 1:
+            print("Game over ❌ ")
+            return
+
+
+    
+
 
 def ask_question(question):
       
@@ -142,10 +157,10 @@ def ask_question(question):
             print("Please enter only A,B or C")
     
     if answer == question["correct"]:
-        print("Correct Good Job")
+        print("Correct! ")
         return True
     else:
-        print("Wrong try again")
+        print("Wrong Try Again")
         return False
     
     
