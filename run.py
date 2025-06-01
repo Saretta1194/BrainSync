@@ -136,12 +136,40 @@ def run_level(level):
         if mistakes > 1:
             print("Game over ❌ ")
             return
+        
+    if score >= 4:
+        print("🎉 You passed the level!")
+        choice = input("Do you want to continue to the next level? (Y/N)").strip().upper()
+    else:
+        print("❌ You didn’t pass this level.")
+        choice = input("Do you want to try again? (Y/N)").strip().upper()
+    
+    if choice == "Y":
+        if level == "easy":
+            run_level("medium")
+        elif level == "medium":
+            run_level("hard")
+        elif level == "hard":
+            print("🎉 Congratulations! You've completed all levels!")
+            return
+
+    elif choice == "N":
+        print(" Thanks for playing  👋")
+        return
+    else:
+        print("Invalid input. Returning to main menu.")
+        return
+
+
+        
+    
 
 
     
 
 
 def ask_question(question):
+
       
     print("\nHere is your question:")
     print(f"Q: {question['question']}")
@@ -162,6 +190,11 @@ def ask_question(question):
     else:
         print("Wrong Try Again")
         return False
+    
+    
+    
+  
+
     
     
 
