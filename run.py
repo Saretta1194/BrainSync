@@ -120,14 +120,11 @@ def run_level(level):
     Loads one question for now.
     """
 
-    # Carica tutte le righe dal foglio Google Sheets come lista di dizionari
+    # Load all rows from Google Sheets as dictionary list
     data = question_sheet.get_all_records()
 
-    # Filtra solo le domande con il livello desiderato
+    # Filter only questions with the desired level
     level_questions = [q for q in data if q['level'] == level]
-
-    # Per ora selezioniamo la prima domanda del livello
-    question = level_questions[0]
 
 def ask_question(question):
       
@@ -137,20 +134,22 @@ def ask_question(question):
     print(f"B: {question['option_b']}")
     print(f"C: {question['option_c']}")
 
-    answer = input("Enter your answer here: ").strip().upper()
-    if answer in ["A", "B", "C"]:
-       if answer == question["correct"]:
+
+    answer = ""
+    while answer not in ["A", "B", "C"]:
+        answer = input("Enter your answer here: ").strip().upper()
+        if answer not in ["A", "B", "C"]:
+            print("Please enter only A,B or C")
+    
+    if answer == question["correct"]:
         print("Correct Good Job")
-       else:
-        print("wrong try again")
+        return True
     else:
-        print("Write A,B or C") 
-
-
-
+        print("Wrong try again")
+        return False
+    
     
 
-    
 
 
 
