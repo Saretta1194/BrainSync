@@ -9,25 +9,23 @@ from datetime import datetime
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-    ]
+    "https://www.googleapis.com/auth/drive",
+]
 
-CREDS = Credentials.from_service_account_file('creds.json')
+CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('BrainSync')
+SHEET = GSPREAD_CLIENT.open("BrainSync")
 
-question_sheet = SHEET.worksheet('questions')
+question_sheet = SHEET.worksheet("questions")
 
 
-
-# Clear terminal screen
 def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
 
-# Display title screen
+
 def display_title():
-    print("""
+    print(r""" # noqa:E501
  /$$$$$$$                     /$$            /$$$$$$                               
 | $$__  $$                   |__/           /$$__  $$                              
 | $$  \ $$  /$$$$$$  /$$$$$$  /$$ /$$$$$$$ | $$  \__/ /$$   /$$ /$$$$$$$   /$$$$$$$
@@ -40,6 +38,7 @@ def display_title():
                                                      |  $$$$$$/                    
                                                       \______/                     
     """)
+
 
 # Show rules
 def rules():
@@ -64,13 +63,14 @@ def rules():
     print("Good luck! 🍀\n")
     time.sleep(1)
 
+
 def get_username():
     """
     Ask the user for their name and validate it's not empty.
     Returns the username as a string.
     """
     while True:
-        name = input("🧑 Please enter your name: ").strip()
+        name = input("🧑 Please enter your name:\n").strip()
         if name:
             return name
         else:
@@ -83,7 +83,7 @@ def main_menu(username):
     time.sleep(0.8)
     """
     Displays the main menu and handles user navigation.
-    """   
+    """
     while True:
         clear()
         display_title()
@@ -93,13 +93,13 @@ def main_menu(username):
         print("2. View Rules")
         print("3. Exit")
 
-        choice = input("\nEnter your choice (1/2/3): ").strip()
+        choice = input("\nEnter your choice (1/2/3):\n").strip()
 
         if choice == "1":
             clear()
             print("Starting Level 1: Easy\n")
             time.sleep(1)
-            run_level("easy",username,progress)  
+            run_level("easy", username, progress)
             break
 
         elif choice == "2":
@@ -117,7 +117,7 @@ def main_menu(username):
             time.sleep(1.5)
 
 
-def run_level(level,username,progress):
+def run_level(level, username, progress):
     """
     Runs the quiz for a given level (easy, medium, hard)
     """
@@ -126,27 +126,28 @@ def run_level(level,username,progress):
     data = question_sheet.get_all_records()
 
     # Filter only questions with the desired level
-    level_questions = [q for q in data if q['level'] == level]
+    level_questions = [q for q in data if q["level"] == level]
 
     score = 0
     mistakes = 0
 
-    
     for question in level_questions[:5]:
         if ask_question(question):
             score += 1
-        else: 
+        else:
             mistakes += 1
         if mistakes > 1:
             print("Game over ❌ ")
             save_score(username, level, score, "failed")
             choice = ""
             while choice not in ["Y", "N"]:
-                choice = input("Do you want try again? (Y/N): ").strip().upper()
+                choice = input(
+                    "Do you want try again? (Y/N):\n"
+                    ).strip().upper()
                 if choice not in ["Y", "N"]:
                     print("❌ Invalid input. Please enter Y or N.")
             if choice == "Y":
-                run_level(level,username, progress) 
+                run_level(level, username, progress)
                 return
             else:
                 print(" Thanks for playing  👋")
@@ -166,7 +167,11 @@ def run_level(level,username,progress):
             save_score(username, level, score, "passed")
             choice = ""
             while choice not in ["Y", "N"]:
-                choice = input("Do you want to continue to the next level? (Y/N): ").strip().upper()
+                choice = (
+                    input(
+                        "Do you want to continue to the next level? (Y/N):\n"
+                        ).strip().upper()
+                )
                 if choice not in ["Y", "N"]:
                     print("❌ Invalid input. Please enter Y or N.")
             if choice == "Y":
@@ -179,7 +184,7 @@ def run_level(level,username,progress):
         save_score(username, level, score, "failed")
         choice = ""
         while choice not in ["Y", "N"]:
-            choice = input("Do you want try again? (Y/N): ").strip().upper()
+            choice = input("Do you want try again? (Y/N):\n").strip().upper()
             if choice not in ["Y", "N"]:
                 print("❌ Invalid input. Please enter Y or N.")
         if choice == "Y":
@@ -188,40 +193,38 @@ def run_level(level,username,progress):
             show_final_summary(username, progress)
             return
 
-def ask_question(question):
 
-      
+def ask_question(question):
     print("\nHere is your question:")
     print(f"Q: {question['question']}")
     print(f"A: {question['option_a']}")
     print(f"B: {question['option_b']}")
     print(f"C: {question['option_c']}")
 
-
     answer = ""
     while answer not in ["A", "B", "C"]:
-        answer = input("Enter your answer here: ").strip().upper()
+        answer = input("Enter your answer here:\n").strip().upper()
         if answer not in ["A", "B", "C"]:
             print("Please enter only A,B or C")
-    
-    
+
     if answer == question["correct"]:
         print("Correct! ")
         return True
     else:
-
         print("Wrong Try Again")
         return False
 
-def save_score (username, level, score,status):
-      """
+
+def save_score(username, level, score, status):
+    """
     Update results worksheet, add new row with the list data provided
     """
-      print("Updating score.../n")
-      current_date = datetime.now().strftime("%d/%m/%Y")
-      result_worksheet = SHEET.worksheet("results")
-      result_worksheet.append_row([username, level, score,status,current_date])
-      print(" ✅ Score updated successfully.\n")
+    print("Updating score.../n")
+    current_date = datetime.now().strftime("%d/%m/%Y")
+    result_worksheet = SHEET.worksheet("results")
+    result_worksheet.append_row([username, level, score, status, current_date])
+    print(" ✅ Score updated successfully.\n")
+
 
 def show_final_summary(username, progress):
     """
@@ -243,8 +246,6 @@ def show_final_summary(username, progress):
         print("👍 Nice try! You passed one level. Keep training!")
     else:
         print("📚 You didn't pass any level. Give it another shot!")
-
-
 
 
 clear()
