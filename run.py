@@ -3,6 +3,7 @@ from google.oauth2.service_account import Credentials
 import os
 import sys
 import time
+from datetime import datetime
 
 
 SCOPE = [
@@ -114,6 +115,7 @@ def main_menu(username):
             print("\n❌ Invalid input. Please enter 1, 2 or 3.")
             time.sleep(1.5)
 
+
 def run_level(level):
     """
     Runs the quiz for a given level (easy, medium, hard)
@@ -136,26 +138,28 @@ def run_level(level):
             mistakes += 1
         if mistakes > 1:
             print("Game over ❌ ")
+            save_score(username, level, score, "failed")
             choice = ""
             while choice not in ["Y", "N"]:
-                choice = input("Do you want to continue to the next level? (Y/N): ").strip().upper()
+                choice = input("Do you want try again? (Y/N): ").strip().upper()
                 if choice not in ["Y", "N"]:
                     print("❌ Invalid input. Please enter Y or N.")
             if choice == "Y":
-                if level == "easy":
-                    run_level("medium")
-                elif level == "medium":
-                    run_level("hard")
+                run_level(level) 
+                return
             else:
                 print(" Thanks for playing  👋")
+                save_score(username, level, score, "quit")
                 return
     
     if score >= 4:
         if level == "hard":
             print("🎉 You’ve completed all levels!")
+            save_score(username, level, score, "passed")
             return
         else:
             print("🎉 You passed the level!")
+            save_score(username, level, score, "passed")
             choice = ""
             while choice not in ["Y", "N"]:
                 choice = input("Do you want to continue to the next level? (Y/N): ").strip().upper()
@@ -194,19 +198,18 @@ def ask_question(question):
 
         print("Wrong Try Again")
         return False
-    
-    
-    
-  
+
+def save_score (username, level, score,status):
+      """
+    Update results worksheet, add new row with the list data provided
+    """
+      print("Updating score.../n")
+      current_date = datetime.now().strftime("%d/%m/%Y")
+      result_worksheet = SHEET.worksheet("results")
+      result_worksheet.append_row([username, level, score,status,current_date])
+      print(" ✅ Score updated successfully.\n")
 
     
-    
-
-
-
-
-
-
 
 clear()
 display_title()
@@ -214,4 +217,3 @@ username = get_username()
 print(f"\n👋 Hello, {username}! Get ready to test your knowledge.\n")
 time.sleep(1.2)
 main_menu(username)
-
