@@ -79,6 +79,7 @@ def get_username():
 
 # Main menu
 def main_menu(username):
+    progress = {}  # Track level scores
     time.sleep(0.8)
     """
     Displays the main menu and handles user navigation.
@@ -98,7 +99,7 @@ def main_menu(username):
             clear()
             print("Starting Level 1: Easy\n")
             time.sleep(1)
-            run_level("easy")  
+            run_level("easy",username,progress)  
             break
 
         elif choice == "2":
@@ -116,7 +117,7 @@ def main_menu(username):
             time.sleep(1.5)
 
 
-def run_level(level):
+def run_level(level,username,progress):
     """
     Runs the quiz for a given level (easy, medium, hard)
     """
@@ -145,17 +146,20 @@ def run_level(level):
                 if choice not in ["Y", "N"]:
                     print("❌ Invalid input. Please enter Y or N.")
             if choice == "Y":
-                run_level(level) 
+                run_level(level,username, progress) 
                 return
             else:
                 print(" Thanks for playing  👋")
                 save_score(username, level, score, "quit")
+                show_final_summary(username, progress)
                 return
-    
+    progress[level] = score
+
     if score >= 4:
         if level == "hard":
             print("🎉 You’ve completed all levels!")
             save_score(username, level, score, "passed")
+            show_final_summary(username, progress)
             return
         else:
             print("🎉 You passed the level!")
@@ -166,13 +170,23 @@ def run_level(level):
                 if choice not in ["Y", "N"]:
                     print("❌ Invalid input. Please enter Y or N.")
             if choice == "Y":
-                if level == "easy":
-                    run_level("medium")
-                elif level == "medium":
-                    run_level("hard")
-            elif choice == "N":
-                print(" Thanks for playing  👋")
-                return
+                next_level = "medium" if level == "easy" else "hard"
+                run_level(next_level, username, progress)
+            else:
+                show_final_summary(username, progress)
+    else:
+        print("❌ You didn’t pass this level.")
+        save_score(username, level, score, "failed")
+        choice = ""
+        while choice not in ["Y", "N"]:
+            choice = input("Do you want try again? (Y/N): ").strip().upper()
+            if choice not in ["Y", "N"]:
+                print("❌ Invalid input. Please enter Y or N.")
+        if choice == "Y":
+            run_level(level, username, progress)
+        else:
+            show_final_summary(username, progress)
+            return
 
 def ask_question(question):
 
@@ -209,7 +223,29 @@ def save_score (username, level, score,status):
       result_worksheet.append_row([username, level, score,status,current_date])
       print(" ✅ Score updated successfully.\n")
 
-    
+def show_final_summary(username, progress):
+    """
+    Shows a final summary of the quiz with the total score and levels passed.
+    """
+    total_score = sum(progress.values())
+    levels_completed = sum(1 for score in progress.values() if score >= 4)
+
+    print("\n📊 FINAL SUMMARY 📊")
+    print(f"Player: {username}")
+    print(f"Levels Completed: {levels_completed}/3")
+    print(f"Total Score: {total_score}/15\n")
+
+    if levels_completed == 3:
+        print("🏆 Status: BrainSinc Master! Well done! 🧠")
+    elif levels_completed == 2:
+        print("💪 Great job! Just one level away from perfection.")
+    elif levels_completed == 1:
+        print("👍 Nice try! You passed one level. Keep training!")
+    else:
+        print("📚 You didn't pass any level. Give it another shot!")
+
+
+
 
 clear()
 display_title()
