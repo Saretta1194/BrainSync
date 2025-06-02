@@ -25,7 +25,7 @@ def clear():
 
 
 def display_title():
-    print("""
+    print(r"""# noqa: W291
 ______      _             _____                  
 | ___ \    (_)           /  ___|                 
 | |_/ /_ __ _  __ _ _ __ \ `--. _   _ _ __   ___ 
