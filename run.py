@@ -126,7 +126,8 @@ def run_level(level):
     level_questions = [q for q in data if q['level'] == level]
 
     score = 0
-    mistakes = 0 
+    mistakes = 0
+
     
     for question in level_questions[:5]:
         if ask_question(question):
@@ -135,38 +136,39 @@ def run_level(level):
             mistakes += 1
         if mistakes > 1:
             print("Game over ❌ ")
-            return
-        
+            choice = ""
+            while choice not in ["Y", "N"]:
+                choice = input("Do you want to continue to the next level? (Y/N): ").strip().upper()
+                if choice not in ["Y", "N"]:
+                    print("❌ Invalid input. Please enter Y or N.")
+            if choice == "Y":
+                if level == "easy":
+                    run_level("medium")
+                elif level == "medium":
+                    run_level("hard")
+            else:
+                print(" Thanks for playing  👋")
+                return
+    
     if score >= 4:
-        print("🎉 You passed the level!")
-        choice = input("Do you want to continue to the next level? (Y/N)").strip().upper()
-    else:
-        print("❌ You didn’t pass this level.")
-        choice = input("Do you want to try again? (Y/N)").strip().upper()
-    
-    if choice == "Y":
-        if level == "easy":
-            run_level("medium")
-        elif level == "medium":
-            run_level("hard")
-        elif level == "hard":
-            print("🎉 Congratulations! You've completed all levels!")
+        if level == "hard":
+            print("🎉 You’ve completed all levels!")
             return
-
-    elif choice == "N":
-        print(" Thanks for playing  👋")
-        return
-    else:
-        print("Invalid input. Returning to main menu.")
-        return
-
-
-        
-    
-
-
-    
-
+        else:
+            print("🎉 You passed the level!")
+            choice = ""
+            while choice not in ["Y", "N"]:
+                choice = input("Do you want to continue to the next level? (Y/N): ").strip().upper()
+                if choice not in ["Y", "N"]:
+                    print("❌ Invalid input. Please enter Y or N.")
+            if choice == "Y":
+                if level == "easy":
+                    run_level("medium")
+                elif level == "medium":
+                    run_level("hard")
+            elif choice == "N":
+                print(" Thanks for playing  👋")
+                return
 
 def ask_question(question):
 
@@ -184,10 +186,12 @@ def ask_question(question):
         if answer not in ["A", "B", "C"]:
             print("Please enter only A,B or C")
     
+    
     if answer == question["correct"]:
         print("Correct! ")
         return True
     else:
+
         print("Wrong Try Again")
         return False
     
