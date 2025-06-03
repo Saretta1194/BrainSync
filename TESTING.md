@@ -12,8 +12,8 @@ The application was tested in a controlled environment by several users to simul
 
 ### ✅ Functional Tests
 
-| Feature            | Action     | Expected Result                      |Actual Result         |
-
+| Feature            | Action     | Expected Result                      |Actual Result          |
+|--------------------|----------- |--------------------------------------|-----------------------|
 | Title Screen       | Load game  | ASCII title and welcome message shown| ✅ Works as expected  |
 | Name Input (valid) | Enter name | Name accepted and stored             | ✅ Works as expected  |
 | Name Input (empty) | Empty name | Prompt for retry                     | ✅ Works as expected  |
