@@ -71,7 +71,7 @@ def get_username():
         if name:
             return name
         else:
-            print("⚠️ Name cannot be empty. Please try again.")
+            print("⚠️ Name cannot be empty. Please enter it again.")
 
 
 # Main menu
@@ -139,7 +139,7 @@ def run_level(level, username, progress):
             choice = ""
             while choice not in ["Y", "N"]:
                 choice = input(
-                    "Do you want try again? (Y/N):\n"
+                    "Ready for another round? (Y/N):\n"
                     ).strip().upper()
                 if choice not in ["Y", "N"]:
                     print("❌ Invalid input. Please enter Y or N.")
@@ -181,7 +181,7 @@ def run_level(level, username, progress):
         save_score(username, level, score, "failed")
         choice = ""
         while choice not in ["Y", "N"]:
-            choice = input("Do you want try again? (Y/N):\n").strip().upper()
+            choice = input("Do you want another chance?(Y/N):\n").strip().upper()
             if choice not in ["Y", "N"]:
                 print("❌ Invalid input. Please enter Y or N.")
         if choice == "Y":
@@ -208,7 +208,7 @@ def ask_question(question):
         print("Correct! ")
         return True
     else:
-        print("Wrong Try Again")
+        print("Oops, not correct! Go again")
         return False
 
 
