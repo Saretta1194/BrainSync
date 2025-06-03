@@ -2,6 +2,7 @@
 
 A terminal-based multiple-choice quiz game connected to Google Sheets for score tracking and progression logging.
 <img src="assets/images/responsive.jpg" alt="responsive" width="800">
+
 The deployed project live link is [HERE](https://brainsync-0f71c4bb1b9c.herokuapp.com/)
 
 ## 📌 Contents
@@ -21,7 +22,7 @@ The deployed project live link is [HERE](https://brainsync-0f71c4bb1b9c.herokuap
 - [Deployment](#deployment)  
 - [Bugs](#bugs)  
 - [Credits](#credits)  
-- [Acknowledgements](#acknowledgements)  
+
 
 ---
 
@@ -148,20 +149,16 @@ BrainSync uses two worksheets:
 The portal has undergone extensive testing, and the results are available for review
 [here - TESTING](https://github.com/Saretta1194/BrainSync/blob/main/TESTING.md)
 
-### Validator Testing
+### Validator
 
 - CI Python Linter
-  - No errors were returned when passing the final version through the 
-  [CI Python Linter](https://pep8ci.herokuapp.com/#)
+  - No errors were returned when passing the final version through the Python Linter with the code # noqa: W291  [CI Python Linter](https://pep8ci.herokuapp.com)
 
-<img src="assets/" alt="CI Python Linter" width="800">
+<img src="assets/images/python test.jpg" alt="CI Python Linter" width="800">
+ 
+ - Without this code the Python Linter returned error W291 inside the ASCII Logo 
+ <img src="assets/images/test without code .jpg" alt="CI Python Linter" width="800"> 
 
-### Fixed Bugs
-- Long lines on Python code:
-  - The solution was to create strings with the variable name outside the function.
-
-### Unfixed Bugs
-  - none
   
 ## Deployment
 - The deployment was done through heroku. following the steps below:
@@ -176,4 +173,21 @@ The portal has undergone extensive testing, and the results are available for re
       - Click on the "Add buildpack" button on the same page and add the buildpacks "python" and "node.js" in this order.
       - Click on the "Deploy" tab.
       - Choose the "GitHub" deployment method and then connect to GitHub.
-      - Scroll down to the "Automatic deploys" section, select the "main" branch to deploy from and then press the "Enable Automatic Deploys" button to deploy the project.
+      - Scroll down to the "Manual deploys" section, select the "main" branch to deploy from and then press the "Deploy branch" button to deploy the project.
+
+## Bugs
+I encountered a bug where the Python Linter flagged a W291 error caused by trailing whitespace in the ASCII logo section of the code. Since the spacing was intentional to preserve the visual formatting of the logo, this warning was not relevant to the functionality of the program. To resolve the issue, I used the # noqa: W291 comment to suppress the linter warning on those specific lines.
+
+## Credits
+## 🙌 Credits
+
+- The base structure of the project was built using the official **Code Institute template**, which provided a solid starting point for development.
+- I referred to articles and tutorials on [Real Python](https://realpython.com/) for best practices and Python logic structuring.
+- Thanks to the **Slack community** for support and feedback during the development process.
+- Special thanks to my **mentor**, who consistently guided me in the right direction, especially regarding project structure, validation, and clarity.
+- YouTube resources were also helpful in shaping specific functions — particularly this tutorial on quiz logic and scoring:  
+  [Quiz game in Python](https://www.youtube.com/watch?v=xCREVkSVZ-c)
+- Google Sheets functionality was implemented using the `gspread` and `google-auth` libraries.
+- General Python tips and formatting references came from:
+  - [FreeCodeCamp – Python for Beginners](https://www.freecodecamp.org/)
+  - [W3Schools – Python Formatting](https://www.w3schools.com/python/)
