@@ -8,7 +8,7 @@ The deployed project live link is [HERE](https://brainsync-0f71c4bb1b9c.herokuap
 ## 📌 Contents
 
 - [Introduction](#introduction)  
-- [Project Goals](#project-goals)  
+- [Project Goals](#-project-goals)  
 - [User Goals](#user-goals)  
 - [Site Owner Goals](#site-owner-goals)  
 - [Pre-Development Planning](#pre-development-planning)  
@@ -26,13 +26,13 @@ The deployed project live link is [HERE](https://brainsync-0f71c4bb1b9c.herokuap
 
 ---
 
-## 🧠 Introduction
+## Introduction
 
 **BrainSync** is a fun and engaging quiz program designed to challenge users across 3 levels of difficulty: Easy, Medium, and Hard. It uses a Google Sheet to retrieve and store questions and user scores. The game is designed to run in a terminal environment and provides instant feedback, score tracking, and end-of-game summaries.
 
 ---
 
-## 🎯 Project Goals
+## Project Goals
 
 - Provide a simple but engaging educational quiz game.
 - Introduce users to progressively challenging content.
@@ -41,7 +41,7 @@ The deployed project live link is [HERE](https://brainsync-0f71c4bb1b9c.herokuap
 
 ---
 
-## 🙋‍♂️ User Goals
+## User Goals
 
 - Understand the game rules clearly.
 - Play through multiple quiz levels with increasing difficulty.
@@ -50,7 +50,7 @@ The deployed project live link is [HERE](https://brainsync-0f71c4bb1b9c.herokuap
 - Ensure progress is saved securely.
 
 ---
-## 💼 Site Owner Goals
+## Site Owner Goals
 
 - Present an interactive educational tool.
 - Collect user performance data via Google Sheets.
@@ -58,7 +58,7 @@ The deployed project live link is [HERE](https://brainsync-0f71c4bb1b9c.herokuap
 - Keep the code modular and scalable for future improvements.
 
 ---
-## 📝 Pre-Development Planning
+## Pre-Development Planning
 
 - Brainstormed quiz mechanics and win/loss conditions.
 Wireframes <img src="assets/images/logic.png" alt="Wireframes of the game" width="800">
@@ -67,7 +67,7 @@ Wireframes <img src="assets/images/logic.png" alt="Wireframes of the game" width
 - Outlined a clear UI in terminal format with visual ASCII art and emojis for feedback.
 
 ---
-## 💻 Development
+## Development
 
 - Used Python and `gspread` to connect with Google Sheets.
 - Structured code for clear function segregation.
@@ -75,7 +75,7 @@ Wireframes <img src="assets/images/logic.png" alt="Wireframes of the game" width
 - Enabled score persistence using Google Sheets append functionality.
 
 ---
-## ✨ Features
+## Features
 
 ### 🧾 Terminal UI with ASCII Art  
 Displays a welcoming title screen and clear visual feedback.
@@ -102,7 +102,7 @@ Reports the number of levels passed and the total score.
 <img src="assets/images/finish of the game briansync.jpg" alt="summary" width="800">
 
 ---
-## 🎮 Game Flow
+## Game Flow
 
 1. Welcome screen and player name input.
 2. Main menu with options to:
@@ -118,7 +118,7 @@ Reports the number of levels passed and the total score.
    - Score saved to Google Sheets
 
 ---
-## 🗂️ Google Sheets Integration
+## Google Sheets Integration
 
 BrainSync uses two worksheets:
 
@@ -134,7 +134,7 @@ BrainSync uses two worksheets:
  
  ---
 
- ## 🛠️ Technologies Used
+ ## Technologies Used
 
 - Python 3
 - Google Sheets API
@@ -149,7 +149,7 @@ BrainSync uses two worksheets:
 The portal has undergone extensive testing, and the results are available for review
 [here - TESTING](https://github.com/Saretta1194/BrainSync/blob/main/TESTING.md)
 
-### Validator
+## Validation
 
 - CI Python Linter
   - No errors were returned when passing the final version through the Python Linter with the code # noqa: W291  [CI Python Linter](https://pep8ci.herokuapp.com)
@@ -179,7 +179,6 @@ The portal has undergone extensive testing, and the results are available for re
 I encountered a bug where the Python Linter flagged a W291 error caused by trailing whitespace in the ASCII logo section of the code. Since the spacing was intentional to preserve the visual formatting of the logo, this warning was not relevant to the functionality of the program. To resolve the issue, I used the # noqa: W291 comment to suppress the linter warning on those specific lines.
 
 ## Credits
-## 🙌 Credits
 
 - The base structure of the project was built using the official **Code Institute template**, which provided a solid starting point for development.
 - I referred to articles and tutorials on [Real Python](https://realpython.com/) for best practices and Python logic structuring.
