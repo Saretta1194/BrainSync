@@ -8,7 +8,7 @@ The deployed project live link is [HERE](https://brainsync-0f71c4bb1b9c.herokuap
 ## 📌 Contents
 
 - [Introduction](#introduction)  
-- [Project Goals](#-project-goals)  
+- [Project Goals](#project-goals) 
 - [User Goals](#user-goals)  
 - [Site Owner Goals](#site-owner-goals)  
 - [Pre-Development Planning](#pre-development-planning)  
