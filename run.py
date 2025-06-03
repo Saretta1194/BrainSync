@@ -181,7 +181,9 @@ def run_level(level, username, progress):
         save_score(username, level, score, "failed")
         choice = ""
         while choice not in ["Y", "N"]:
-            choice = input("Do you want another chance?(Y/N):\n").strip().upper()
+            choice = input(
+                "Do you want another chance?(Y/N):\n"
+                ).strip().upper()
             if choice not in ["Y", "N"]:
                 print("❌ Invalid input. Please enter Y or N.")
         if choice == "Y":
